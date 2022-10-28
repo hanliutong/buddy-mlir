@@ -17,6 +17,8 @@ target_link_libraries(buddy-opt
   LowerDIPPass
   BuddyDAP
   LowerDAPPass
+  BuddyRVK
+  LowerRVKPass
   BuddyRVV
   LowerRVVPass
   )

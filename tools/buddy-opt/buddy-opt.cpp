@@ -38,6 +38,7 @@
 #include "DIP/DIPDialect.h"
 #include "DIP/DIPOps.h"
 #include "RVV/RVVDialect.h"
+#include "RVK/RVKDialect.h"
 
 namespace mlir {
 namespace buddy {
@@ -48,6 +49,7 @@ void registerLowerBudPass();
 void registerLowerDIPPass();
 void registerLowerDAPPass();
 void registerLowerRVVPass();
+void registerLowerRVKPass();
 } // namespace buddy
 } // namespace mlir
 
@@ -72,6 +74,7 @@ int main(int argc, char **argv) {
   registry.insert<buddy::bud::BudDialect,
                   buddy::dip::DIPDialect,
                   buddy::dap::DAPDialect,
+                  buddy::rvk::RVKDialect,
                   buddy::rvv::RVVDialect>();
   // clang-format on
 

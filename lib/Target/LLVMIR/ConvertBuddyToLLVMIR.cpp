@@ -26,6 +26,7 @@
 #include "llvm/IR/Module.h"
 
 #include "Target/LLVMIR/Dialect/RVV/RVVToLLVMIRTranslation.h"
+#include "Target/LLVMIR/Dialect/RVK/RVKToLLVMIRTranslation.h"
 
 using namespace buddy;
 using namespace mlir;
@@ -56,6 +57,7 @@ void registerBuddyToLLVMIRTranslation() {
         registerX86VectorDialectTranslation(registry);
         // Register translation in buddy project.
         registerRVVDialectTranslation(registry);
+        registerRVKDialectTranslation(registry);
       });
 }
 } // namespace buddy

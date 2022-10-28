@@ -1,4 +1,4 @@
-//===- buddy-translate.cpp --------------------------------------*- C++ -*-===//
+//=======- RVKToLLVMIRTranslation.h - RVK to LLVM IR ------------*- C++ -*-===//
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,27 +14,23 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This is a command line utility that translates a file from/to MLIR using one
-// of the registered translations.
+// This provides registration calls for RVK dialect to LLVM IR translation.
 //
 //===----------------------------------------------------------------------===//
 
-#include "mlir/InitAllTranslations.h"
-#include "mlir/Support/LogicalResult.h"
-#include "mlir/Tools/mlir-translate/MlirTranslateMain.h"
-
-#include "RVV/RVVDialect.h"
-#include "RVK/RVKDialect.h"
-using namespace buddy;
-using namespace mlir;
+#ifndef TARGET_LLVMIR_DIALECT_RVK_RVKTOLLVMIRTRANSLATION_H
+#define TARGET_LLVMIR_DIALECT_RVK_RVKTOLLVMIRTRANSLATION_H
 
 namespace buddy {
-void registerBuddyToLLVMIRTranslation();
-}
 
-int main(int argc, char **argv) {
-  mlir::registerAllTranslations();
-  buddy::registerBuddyToLLVMIRTranslation();
+/// Register the RVK dialect and the translation from it to the LLVM IR in
+/// the given registry.
+void registerRVKDialectTranslation(mlir::DialectRegistry &registry);
 
-  return failed(mlir::mlirTranslateMain(argc, argv, "Buddy Translation Tool"));
-}
+/// Register the RVK dialect and the translation from it in the registry
+/// associated with the given context.
+void registerRVKDialectTranslation(mlir::MLIRContext &context);
+
+} // namespace buddy
+
+#endif // TARGET_LLVMIR_DIALECT_RVK_RVKTOLLVMIRTRANSLATION_H
