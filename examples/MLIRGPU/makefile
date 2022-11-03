@@ -40,3 +40,16 @@ gpu-mma-run:
 		-pass-pipeline='gpu.module(strip-debuginfo,convert-gpu-to-nvvm,gpu-to-cubin{chip=sm_70})' \
 		--convert-scf-to-cf -gpu-to-llvm | \
 	${MLIR_CPU_RUNNER} -entry-point-result=void -shared-libs=${MLIR_RUNNER_UTILS} -shared-libs=${MLIR_CUDA_RUNTIME}
+
+gpu-sha1c-lower:
+	@${MLIR_OPT} gpu-sha1c.mlir -gpu-kernel-outlining \
+		-convert-vector-to-llvm -convert-func-to-llvm \
+		-pass-pipeline='gpu.module(strip-debuginfo,convert-gpu-to-nvvm,gpu-to-cubin{chip=sm_70})' \
+		-gpu-to-llvm -reconcile-unrealized-casts -o log.mlir
+
+gpu-sha1c-run:
+	@${MLIR_OPT} gpu-sha1c.mlir -gpu-kernel-outlining \
+		-convert-vector-to-llvm -convert-func-to-llvm \
+		-pass-pipeline='gpu.module(strip-debuginfo,convert-gpu-to-nvvm,gpu-to-cubin{chip=sm_70})' \
+		-gpu-to-llvm -reconcile-unrealized-casts | \
+	${MLIR_CPU_RUNNER} -entry-point-result=void -shared-libs=${MLIR_RUNNER_UTILS} -shared-libs=${MLIR_CUDA_RUNTIME}
